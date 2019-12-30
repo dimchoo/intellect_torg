@@ -1,0 +1,11 @@
+venv
+*venv
+__pycache__
+__pycache__/
+*.py[cod]
+*$py.class
+.idea/
+.DS_Store
+*.idea/
+*.DS_Store
+*secret_settings.py
