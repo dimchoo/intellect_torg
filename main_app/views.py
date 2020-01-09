@@ -21,3 +21,10 @@ class HomeView(ListView):
 class ProductView(DetailView):
     model = Product
     template_name = 'main_app/product.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        context['similar_products'] = Product.objects.filter(
+            category=self.object.category
+        ).order_by('?').exclude(pk=self.object.pk)[:4]
+        return context

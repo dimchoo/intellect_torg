@@ -1,314 +1,96 @@
-<!DOCTYPE html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <link rel="shortcut icon" type="img/png" href="../static/img/favicon.png">
-    <title>Title</title>
-    <link rel="stylesheet" href="../static/libs/fontawesome-free/css/all.css">
-    <link rel="stylesheet" href="../static/libs/fontawesome-pro/css/all.css">
-    <link rel="stylesheet" href="../static/libs/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../static/styles/main.css">
-</head>
-<body>
+{% extends 'main_app/base.html' %}
+{% load static %}
 
-<div class="top-menu">
+{% block title %}
+    {{ object.name }}
+{% endblock %}
+
+{% block content %}
     <div class="container">
-        <div class="row">
-            <div class="col-lg-3 d-lg-block d-none slogan">Продукты питания оптом</div>
-            <div class="col-lg-9 col-12 d-flex justify-content-lg-end justify-content-between top-menu-items">
-                <a href="sale.html" class="d-flex">
-                    <i class="fad fa-badge-percent"></i>
-                    <div class="top-menu-item d-md-block d-none">Распродажа</div>
-                </a>
-                <a href="price-list.html" class="d-flex">
-                    <i class="fad fa-money-check-alt"></i>
-                    <div class="top-menu-item d-md-block d-none">Прайс-лист</div>
-                </a>
-                <a href="delivery.html" class="d-flex">
-                    <i class="fad fa-truck"></i>
-                    <div class="top-menu-item d-md-block d-none">Доставка</div>
-                </a>
-                <a href="contacts.html" class="d-flex">
-                    <i class="fad fa-phone-square-alt"></i>
-                    <div class="top-menu-item d-md-block d-none">Контакты</div>
-                </a>
+        <h2 class="page-title">Чай Greenfield черный цейлонский</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-12 one-product-wrap">
+                <div class="one-product-img-wrap">
+                    <img src="{{ object.image.url }}" class="img-fluid" alt="{{ object.name }}">
+                </div>
+                <div class="one-product-detail-wrap">
+                    <div class="one-product-prices-wrap d-inline-flex">
+                        {% if object.old_price %}
+                            <div class="one-product-old-price">
+                                {{ object.old_price }} руб.
+                            </div>
+                            &nbsp;
+                        {% endif %}
+                        <div class="one-product-new-price">
+                            {{ object.new_price }} руб.
+                        </div>
+                    </div>
+                    <div class="one-product-status-wrap">
+                        Статус: <span>{{ object.status }}</span>
+                    </div>
+                    <div class="in-box">
+                        В коробке: <span>{{ object.in_box }}</span>
+                    </div>
+                    <div class="in-pallet">
+                        В паллете: <span>{{ object.in_pallet }}</span>
+                    </div>
+                    <div class="one-product-category-wrap">
+                        Категория: <span>{{ object.category.name }}</span>
+                    </div>
+                    <div class="one-product-brand-wrap">
+                        <a href="#">
+                            <img src="{{ object.brand.image.url }}" alt="{{ object.brand.name }}">
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<header class="bg-dark sticky-top">
     <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="index.html">
-                <img src="../static/img/logo2.png" height="45" class="d-inline-block align-top" alt="">
-            </a>
-            <button class="navbar-toggler blue-focus" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav order-lg-0">
-                    <li class="nav-item dropdown block-nav-item order-1">
-                        <a class="nav-link block-nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            КАТАЛОГ
-                        </a>
-                        <div class="dropdown-menu drop-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item see-all" href="products.html">Смотреть все</a>
-                            <a class="dropdown-item" href="#">Шоколад, батончики</a>
-                            <a class="dropdown-item" href="#">Весовые конфеты, батончики</a>
-                            <a class="dropdown-item" href="#">Жевательная резинка, леденцы</a>
-                            <a class="dropdown-item" href="#">Печенье</a>
-                            <a class="dropdown-item" href="#">Чай</a>
-                            <a class="dropdown-item" href="#">Чипсы</a>
-                            <a class="dropdown-item" href="#">Закуски к пиву, снеки</a>
-                            <a class="dropdown-item" href="#">Продукты быстрого приготовления</a>
-                            <a class="dropdown-item" href="#">Корм для животных</a>
-                            <a class="dropdown-item" href="#">С истекающим сроком</a>
-                            <a class="dropdown-item" href="#">Пиво</a>
+        {% if similar_products %}
+        <h3 class="similar-products-wrap">Похожие товары:</h3>
+        <div class="row justify-content-center">
+            {% for similar_product in similar_products %}
+                <div class="col-lg-3 col-md-6 col-12">
+                <div class="product-wrap">
+                    {% if similar_product.type == 'Sale' %}
+                        <div class="sale-wrap">
+                            SALE
                         </div>
-                    </li>
-                    <li class="nav-item dropdown block-nav-item order-lg-1 order-2">
-                        <a class="nav-link block-nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            БРЕНДЫ
-                        </a>
-                        <div class="dropdown-menu drop-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item see-all" href="brands.html">Смотреть все</a>
-                            <a class="dropdown-item" href="#">Bounty</a>
-                            <a class="dropdown-item" href="#">Choco Boy</a>
-                            <a class="dropdown-item" href="#">Ciko</a>
-                            <a class="dropdown-item" href="#">Diamond Foods</a>
-
+                    {% elif similar_product.type == 'New' %}
+                        <div class="sale-wrap">
+                            SALE
                         </div>
-                    </li>
-                    <li class="nav-item order-lg-2 order-0">
-                        <form class="form-inline search-wrap">
-                            <input class="form-control mr-sm-2 search" type="search" placeholder="Поиск" aria-label="Search">
-                            <button class="search-button clr-dark" type="submit">
-                                <i class="far fa-search clr-dark" aria-hidden="true"></i>
-                            </button>
-                        </form>
-                    </li>
-                </ul>
-                <ul class="navbar-nav ml-lg-auto order-3">
-                    <li class="nav-item phones-wrap">
-                        <a class="phone" href="tel:+71234567890">
-                            +7 (123) 456-78-90
-                        </a>
-                        <a class="phone" href="tel:+71234567890">
-                            +7 (123) 456-78-90
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </div>
-</header>
+                    {% endif %}
 
-<div class="container">
-    <h2 class="page-title">Чай Greenfield черный цейлонский</h2>
-    <div class="row justify-content-center">
-        <div class="col-md-8 col-12 one-product-wrap">
-            <div class="one-product-img-wrap">
-                <img src="../static/img/products/greenfield.jpg" class="img-fluid" alt="">
-            </div>
-            <div class="one-product-detail-wrap">
-                <div class="one-product-prices-wrap d-inline-flex">
-                    <div class="one-product-old-price">
-                        150.00 руб.
-                    </div>
-                    &nbsp;
-                    <div class="one-product-new-price">
-                        145.00 руб.
-                    </div>
-                </div>
-                <div class="one-product-status-wrap">
-                    Статус: <span>В наличии</span>
-                </div>
-                <div class="in-box">
-                    В коробке: <span>24 шт.</span>
-                </div>
-                <div class="in-pallet">
-                    В паллете: <span>32 кор.</span>
-                </div>
-                <div class="one-product-category-wrap">
-                    Категория: <span>Чай</span>
-                </div>
-                <div class="one-product-brand-wrap">
-                    <a href="#">
-                        <img src="../static/img/brands/greenfield-brand.jpg" alt="">
+                    <a href="{% url 'main_app:product' similar_product.pk %}" class="img-wrap">
+                        <img src="{{ similar_product.image.url }}" class="img-fluid" alt="{{ similar_product.name }}">
                     </a>
+                    <a href="product.html" class="product-name-wrap">
+                        {{ similar_product.name }}
+                    </a>
+                    <div class="price-wrap">
+                        {% if similar_product.old_price %}
+                            <span class="old-price">
+                                {{ similar_product.old_price }}
+                            </span>
+                            &nbsp;
+                        {% endif %}
+                        <span class="new-price">
+                            {{ similar_product.new_price }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% endif %}
+            <div class="col-12">
+                <div class="one-product-description">
+                    {{ object.description | safe }}
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="container">
-    <h3 class="similar-products-wrap">Похожие товары:</h3>
-    <div class="row">
-        <div class="col-lg-3 col-md-6 col-12">
-            <div class="product-wrap">
-                <div class="sale-wrap">
-                    SALE
-                </div>
-                <a href="product.html" class="img-wrap">
-                    <img src="../static/img/products/chupachups.jpg" class="img-fluid" alt="">
-                </a>
-                <a href="product.html" class="product-name-wrap">
-                    Конфеты ChupaChups "Двойная порция"
-                </a>
-                <div class="price-wrap">
-                <span class="old-price">
-                    97.00 руб.
-                </span>
-                    &nbsp;
-                    <span class="new-price">
-                    84.00 руб.
-                </span>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6 col-12">
-            <div class="product-wrap">
-                <div class="new-wrap">
-                    NEW
-                </div>
-                <a href="product.html" class="img-wrap">
-                    <img src="../static/img/products/alpengold.jpg" class="img-fluid" alt="">
-                </a>
-                <a href="product.html" class="product-name-wrap">
-                    Шоколад Alpen Gold Арахис и кукурузные хлопья
-                </a>
-                <div class="price-wrap">
-                <span class="old-price">
-                    36.00 руб.
-                </span>
-                    &nbsp;
-                    <span class="new-price">
-                    34.00 руб.
-                </span>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6 col-12">
-            <div class="product-wrap">
-                <div class="sale-wrap">
-                    SALE
-                </div>
-                <a href="product.html" class="img-wrap">
-                    <img src="../static/img/products/estrella.jpg" class="img-fluid" alt="">
-                </a>
-                <a href="product.html" class="product-name-wrap">
-                    Чипсы Estrella рифленые "Деревенская сметана и лук"
-                </a>
-                <div class="price-wrap">
-                <span class="old-price">
-                    60.00 руб.
-                </span>
-                    &nbsp;
-                    <span class="new-price">
-                    53.00 руб.
-                </span>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6 col-12">
-            <div class="product-wrap">
-                <div class="new-wrap">
-                    NEW
-                </div>
-                <a href="product.html" class="img-wrap">
-                    <img src="../static/img/products/nescafe.jpg" class="img-fluid" alt="">
-                </a>
-                <a href="product.html" class="product-name-wrap">
-                    Кофе Nescafe Gold растворимый
-                </a>
-                <div class="price-wrap">
-                <span class="old-price">
-                    223.00 руб.
-                </span>
-                    &nbsp;
-                    <span class="new-price">
-                    215.80 руб.
-                </span>
-                </div>
-            </div>
-        </div>
-        <div class="col-12">
-            <div class="one-product-description">
-                Описание продукта. Тут будет описание продукта и ключевые слова для SEO-оптимизации.
-                Далее идет заглушка из текста. Разнообразный и богатый опыт консультация с широким активом играет
-                важную роль в формировании существенных финансовых и административных условий.
-                Равным образом сложившаяся структура организации требуют определения уточнения
-                существенных финансовых и административных условий. Идейные соображения высшего
-                порядка, а также постоянный количественный рост и сфера нашей активности играет
-                важную роль в формировании модели развития. Не следует, однако забывать,
-                что начало повседневной работы по формированию позиции влечет за собой процесс
-                внедрения и модернизации существенных финансовых и административных условий.
-            </div>
-        </div>
-    </div>
-</div>
-
-<footer class="bg-dark">
-    <div class="container bg-dark">
-        <div class="row">
-            <div class="col-lg-4 col-6 footer-unit">
-                <h5>Наши партнеры:</h5>
-                <div>Арго Топ</div>
-                <div>Топ Лист</div>
-            </div>
-            <div class="col-lg-4 col-6 footer-unit">
-                <h5>Внимание!</h5>
-                <div>
-                    Данный сайт носит исключительно информационный характер и не является публичной офертой, определяемой положениями ч. 2 ст. 437 ГК РФ. Для получения подробной информации о стоимости, наименовании и сроках оказания услуг, пожалуйста, обращайтесь к менеджерам.
-                </div>
-            </div>
-            <div class="col-lg-4 col-12 footer-unit">
-                <h5>Подписка на рассылку:</h5>
-                <div>
-                    Подпишитесь на нашу рассылку новостей, чтоб быть в курсе всех изменений в номенклатуре товаров — снижении цен, новых позиций, специальных предложений.
-                </div>
-                <form class="form-inline email-form">
-                    <input class="form-control mr-sm-2 email-input" type="email" placeholder="Email" aria-label="Email">
-                    <button type="submit" class="email-button">Подписаться</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</footer>
-
-<div class="under-footer-wrap">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-4 order-0 text-center text-lg-left">
-                <span class="copyright">ООО «Интеллект Торг» © 2019</span>
-            </div>
-            <div class="col-lg-4 text-center order-lg-1 order-2">
-                <img src="../static/img/logo.png" alt="" height="30">
-            </div>
-            <div class="col-lg-4 d-flex justify-content-lg-end footer-contacts justify-content-center order-lg-2">
-                <span>+7 (123) 456-78-90+7&nbsp;&nbsp;(123) 456-78-90&nbsp&nbsp;</span><i class="fab fa-viber"></i> &nbsp;<i class="fab fa-whatsapp"></i>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<script src="../static/libs/jquery/jquery.min.js"></script>
-<script src="../static/libs/jquery/jquery.waypoints.min.js"></script>
-<script src="../static/libs/infinite/infinite.min.js"></script>
-<script src="../static/libs/bootstrap/js/bootstrap.min.js"></script>
-<script>
-    $('.dropdown').on('show.bs.dropdown', function(e){
-        $(this).find('.dropdown-menu').first().stop(true, true).slideDown();
-    });
-
-    // Add slideUp animation to dropdown
-    $('.dropdown').on('hide.bs.dropdown', function(e){
-        $(this).find('.dropdown-menu').first().stop(true, true).slideUp();
-    });
-</script>
-</body>
-</html>
+{% endblock %}
