@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic import DetailView
 from django.views.generic.list import ListView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from main_app.models import Slide, Product, Brand
+from main_app.models import Slide, Product, Brand, CommonPageDescription
 
 
 class HomeView(ListView):
@@ -15,6 +15,7 @@ class HomeView(ListView):
         context['new_products_slice'] = Product.objects.filter(type='New').order_by('-pk')[:8]
         context['sale_products_slice'] = Product.objects.filter(type='Sale').order_by('-pk')[:8]
         context['popular_brands_slice'] = Brand.objects.order_by('?')[:12]
+        context['page_descriptions'] = CommonPageDescription.objects.filter(page_name='Главная')
         return context
 
 
