@@ -22,7 +22,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'main_app',
+    'ckeditor',
+    'ckeditor_uploader',
 ]
+
+CKEDITOR_UPLOAD_PATH = 'ck_uploads'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -48,6 +53,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'main_app.context_processors.categories_processor',
+                'main_app.context_processors.brands_processor',
+                'main_app.context_processors.contact_phones_processor',
             ],
         },
     },
@@ -70,7 +78,6 @@ DATABASES = {
             'PASSWORD': PROJECT_DATABASE_PASSWORD,
             'HOST': '127.0.0.1'
     }
-
 }
 
 
@@ -101,3 +108,9 @@ USE_TZ = True
 
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

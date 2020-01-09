@@ -1,0 +1,145 @@
+{% extends "main_app/base.html" %}
+{% load static %}
+
+{% block title %}
+    Главная
+{% endblock %}
+
+{% block content %}
+
+    {% if slides %}
+        <div class="container-fluid">
+            <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    {% for slide in slides %}
+                        <li data-target="#carouselExampleCaptions" data-slide-to="{{ slide.index}}" {% ifequal slide.index 0 %}class="active"{% endifequal %}></li>
+                    {% endfor %}
+                </ol>
+                <div class="carousel-inner">
+                    {% for slide in slides %}
+                        <div class="carousel-item {% ifequal slide.index 0 %}active{% endifequal %}">
+                            <img src="{{ slide.image.url }}" class="d-block w-100" alt="{{ slide.index }}">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5>{{ slide.title }}</h5>
+                                <p>{{ slide.description }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if new_products_slice %}
+        <div class="container new-products">
+            <h2 class="main-title">Новые поступления:</h2>
+            <div class="row justify-content-center">
+                {% for new_home_product in new_products_slice %}
+                    <div class="col-lg-3 col-md-6 col-12">
+                    <div class="product-wrap">
+                        <div class="new-wrap">
+                            NEW
+                        </div>
+                        <a href="{% url 'main_app:product' new_home_product.pk %}" class="img-wrap">
+                            <img src="{{ new_home_product.image.url }}" class="img-fluid" alt="{{ new_home_product.name }}">
+                        </a>
+                        <a href="product.html" class="product-name-wrap">
+                            {{ new_home_product.name }}
+                        </a>
+                        <div class="price-wrap">
+                            {% if new_home_product.old_price %}
+                                <span class="old-price">
+                                    {{ new_home_product.old_price }} руб.
+                                </span>
+                                &nbsp;
+                            {% endif %}
+                            <span class="new-price">
+                                {{ new_home_product.new_price }} руб.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+    {% if sale_products_slice %}
+        <div class="container sale-products">
+            <h2 class="main-title">Распродажа:</h2>
+            <div class="row justify-content-center">
+                {% for sale_home_product in sale_products_slice %}
+                    <div class="col-lg-3 col-md-6 col-12">
+                        <div class="product-wrap">
+                            <div class="sale-wrap">
+                                SALE
+                            </div>
+                            <a href="{% url 'main_app:product' sale_home_product.pk %}" class="img-wrap">
+                                <img src="{{ sale_home_product.image.url }}" class="img-fluid" alt="{{ sale_home_product.name }}">
+                            </a>
+                            <a href="product.html" class="product-name-wrap">
+                                {{ sale_home_product.name }}
+                            </a>
+                            <div class="price-wrap">
+                                {% if sale_home_product.old_price %}
+                                <span class="old-price">
+                                    {{ sale_home_product.old_price }}
+                                </span>
+                                &nbsp;
+                                {% endif %}
+                                <span class="new-price">
+                                    {{ sale_home_product.new_price }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+    {% if popular_brands_slice %}
+        <div class="container popular-brands">
+            <h2 class="main-title">Популярные бренды:</h2>
+            <div class="row">
+                {% for popular_brand in popular_brands_slice %}
+                    <div class="col-lg-2 col-md-3 col-6">
+                    <a href="#">
+                        <img src="{{ popular_brand.image.url }}" class="img-fluid" alt="{{ popular_brand.name }}">
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+<div class="container page-description">
+    <h2>Заголовок описания страницы</h2>
+    <p>Данный раздел предназначен для описания страницы и SEO-оптимизации.
+        Здесь будет находится много текста, содержащего поисковые запросы и ключевые слова.
+        Заполнять этот раздел должен менеджер или SEO-оптимизатор из админки сайта.
+        Дальше будет идти «текст-рыба».
+    </p>
+    <p>
+        Таким образом сложившаяся структура организации играет важную роль в формировании позиций,
+        занимаемых участниками в отношении поставленных задач.
+        Значимость этих проблем настолько очевидна, что новая модель организационной деятельности
+        влечет за собой процесс внедрения и модернизации новых предложений.
+    </p>
+    <p>
+        Идейные соображения высшего порядка, а также новая модель организационной деятельности
+        требуют от нас анализа существенных финансовых и административных условий.
+        Товарищи! укрепление и развитие структуры требуют от нас анализа направлений
+        прогрессивного развития.
+    </p>
+</div>
+
+{% endblock %}
