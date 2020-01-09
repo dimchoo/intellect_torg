@@ -59,11 +59,10 @@
                             SALE
                         </div>
                     {% elif similar_product.type == 'New' %}
-                        <div class="sale-wrap">
-                            SALE
+                        <div class="new-wrap">
+                            NEW
                         </div>
                     {% endif %}
-
                     <a href="{% url 'main_app:product' similar_product.pk %}" class="img-wrap">
                         <img src="{{ similar_product.image.url }}" class="img-fluid" alt="{{ similar_product.name }}">
                     </a>
