@@ -9,3 +9,4 @@ __pycache__/
 *.idea/
 *.DS_Store
 *secret_settings.py
+media/
