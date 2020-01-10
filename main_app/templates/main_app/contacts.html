@@ -1,235 +1,69 @@
-<!DOCTYPE html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <link rel="shortcut icon" type="img/png" href="../static/img/favicon.png">
-    <title>Интеллект Торг | Главная</title>
-    <link rel="stylesheet" href="../static/libs/fontawesome-free/css/all.css">
-    <link rel="stylesheet" href="../static/libs/fontawesome-pro/css/all.css">
-    <link rel="stylesheet" href="../static/libs/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../static/styles/main.css">
-</head>
-<body>
+{% extends 'main_app/base.html' %}
+{% load static %}
 
-<div class="top-menu">
-    <div class="container">
+{% block title %}
+    Контакты
+{% endblock %}
+
+{% block content %}
+    <div class="container min-80">
+        <h2 class="page-title">
+            Контактная информация
+        </h2>
         <div class="row">
-            <div class="col-lg-3 d-lg-block d-none slogan">Продукты питания оптом</div>
-            <div class="col-lg-9 col-12 d-flex justify-content-lg-end justify-content-between top-menu-items">
-                <a href="sale.html" class="d-flex">
-                    <i class="fad fa-badge-percent"></i>
-                    <div class="top-menu-item d-md-block d-none">Распродажа</div>
-                </a>
-                <a href="price-list.html" class="d-flex">
-                    <i class="fad fa-money-check-alt"></i>
-                    <div class="top-menu-item d-md-block d-none">Прайс-лист</div>
-                </a>
-                <a href="delivery.html" class="d-flex">
-                    <i class="fad fa-truck"></i>
-                    <div class="top-menu-item d-md-block d-none">Доставка</div>
-                </a>
-                <a href="contacts.html" class="d-flex">
-                    <i class="fad fa-phone-square-alt"></i>
-                    <div class="top-menu-item d-md-block d-none">Контакты</div>
-                </a>
+            {% for page_description in page_descriptions %}
+                <div class="col-12 contacts-about">
+                    {{ page_description.description | safe }}
+                </div>
+            {% endfor %}
+            <div class="col-md-3 col-6">
+                <img src="{% static 'img/warehouse-photo1.jpg' %}" class="img-fluid contacts-img" alt="Склад (фото 1)">
             </div>
-        </div>
-    </div>
-</div>
-
-<header class="bg-dark sticky-top">
-    <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="index.html">
-                <img src="../static/img/logo2.png" height="45" class="d-inline-block align-top" alt="">
-            </a>
-            <button class="navbar-toggler blue-focus" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav order-lg-0">
-                    <li class="nav-item dropdown block-nav-item order-1">
-                        <a class="nav-link block-nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            КАТАЛОГ
-                        </a>
-                        <div class="dropdown-menu drop-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item see-all" href="products.html">Смотреть все</a>
-                            <a class="dropdown-item" href="#">Шоколад, батончики</a>
-                            <a class="dropdown-item" href="#">Весовые конфеты, батончики</a>
-                            <a class="dropdown-item" href="#">Жевательная резинка, леденцы</a>
-                            <a class="dropdown-item" href="#">Печенье</a>
-                            <a class="dropdown-item" href="#">Чай</a>
-                            <a class="dropdown-item" href="#">Чипсы</a>
-                            <a class="dropdown-item" href="#">Закуски к пиву, снеки</a>
-                            <a class="dropdown-item" href="#">Продукты быстрого приготовления</a>
-                            <a class="dropdown-item" href="#">Корм для животных</a>
-                            <a class="dropdown-item" href="#">С истекающим сроком</a>
-                            <a class="dropdown-item" href="#">Пиво</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown block-nav-item order-lg-1 order-2">
-                        <a class="nav-link block-nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            БРЕНДЫ
-                        </a>
-                        <div class="dropdown-menu drop-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item see-all" href="brands.html">Смотреть все</a>
-                            <a class="dropdown-item" href="#">Bounty</a>
-                            <a class="dropdown-item" href="#">Choco Boy</a>
-                            <a class="dropdown-item" href="#">Ciko</a>
-                            <a class="dropdown-item" href="#">Diamond Foods</a>
-
-                        </div>
-                    </li>
-                    <li class="nav-item order-lg-2 order-0">
-                        <form class="form-inline search-wrap">
-                            <input class="form-control mr-sm-2 search" type="search" placeholder="Поиск" aria-label="Search">
-                            <button class="search-button clr-dark" type="submit">
-                                <i class="far fa-search clr-dark" aria-hidden="true"></i>
-                            </button>
-                        </form>
-                    </li>
-                </ul>
-                <ul class="navbar-nav ml-lg-auto order-3">
-                    <li class="nav-item phones-wrap">
-                        <a class="phone" href="tel:+71234567890">
-                            +7 (123) 456-78-90
-                        </a>
-                        <a class="phone" href="tel:+71234567890">
-                            +7 (123) 456-78-90
-                        </a>
-                    </li>
-                </ul>
+            <div class="col-md-3 col-6">
+                <img src="{% static 'img/warehouse-photo2.jpg' %}" class="img-fluid contacts-img" alt="Склад (фото 2)">
             </div>
-        </nav>
-    </div>
-</header>
-
-<div class="container min-80">
-    <h2 class="page-title">
-        Контактная информация
-    </h2>
-    <div class="row">
-        <div class="col-12 contacts-about">
-            ООО «Интеллект торг» (ИНН 7727393406, ОГРН 1187746838180)
-            один из крупнейших оптовых поставщиков продуктов питания
-            на территории Центрального Федерального Округа.
-            В нашем ассортименте только самые известные,
-            лучшие марки от отечественных и зарубежных производителей.
-            Мы подберем Вам необходимый товар таким образом,
-            чтобы обеспечить максимальные продажи в минимально короткий срок.
-        </div>
-        <div class="col-md-3 col-6">
-            <img src="../static/img/warehouse-photo1.jpg" class="img-fluid contacts-img" alt="">
-        </div>
-        <div class="col-md-3 col-6">
-            <img src="../static/img/warehouse-photo2.jpg" class="img-fluid contacts-img" alt="">
-        </div>
-        <div class="col-md-3 col-6">
-            <img src="../static/img/warehouse-photo3.jpg" class="img-fluid contacts-img" alt="">
-        </div>
-        <div class="col-md-3 col-6">
-            <img src="../static/img/warehouse-photo4.jpg" class="img-fluid contacts-img" alt="">
-        </div>
-        <div class="col-md-6 col-12">
-            <div class="contacts-phone-numbers">
-                <h4 class="d-flex justify-content-around">
-                    <i class="fas fa-sms"></i>
-                    <i class="far fa-phone-volume"></i>
-                    <i class="fab fa-whatsapp-square"></i>
-                    <i class="fab fa-viber"></i>
-                </h4>
-                <div class="contacts-phones-wrap">
-                    <a class="contacts-phone-unit" href="tel:+71234567890">
-                        +7 (123) 456-78-90
-                    </a>
-                    <a class="contacts-phone-unit" href="tel:+71234567890">
-                        +7 (123) 456-78-90
-                    </a>
+            <div class="col-md-3 col-6">
+                <img src="{% static 'img/warehouse-photo3.jpg' %}" class="img-fluid contacts-img" alt="Склад (фото 3)">
+            </div>
+            <div class="col-md-3 col-6">
+                <img src="{% static 'img/warehouse-photo4.jpg' %}" class="img-fluid contacts-img" alt="Склад (фото 4)">
+            </div>
+            <div class="col-md-6 col-12">
+                <div class="contacts-phone-numbers">
+                    <h4 class="d-flex justify-content-around">
+                        <i class="fas fa-sms"></i>
+                        <i class="far fa-phone-volume"></i>
+                        <i class="fab fa-whatsapp-square"></i>
+                        <i class="fab fa-viber"></i>
+                    </h4>
+                    <div class="contacts-phones-wrap">
+                        {% for phone_number in contacts_phones %}
+                            <a href="tel:{{ phone_number.phone }}" class="contacts-phone-unit">{{ phone_number.readable_phone }}</a>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-6 col-12 ">
-            <div class="contacts-emails">
-                <h4><i class="fad fa-at"></i> Почта:</h4>
-                <div class="contacts-emails-wrap">
-                    <a href="mailto: somemail1@torg.ru">somemail1@torg.ru</a>
-                    <a href="mailto: somemail2@torg.ru">somemail2@torg.ru</a>
+            <div class="col-md-6 col-12 ">
+                <div class="contacts-emails">
+                    <h4><i class="fad fa-at"></i> Почта:</h4>
+                    <div class="contacts-emails-wrap">
+                        {% for contact_email in contacts_emails %}
+                            <a href="mailto:{{ contact_email.email }}">{{ contact_email.email }}</a>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-12 contacts-address-time-wrap">
-            <div class="address-wrap">
-                <span>Адрес оптового склада:</span> 142712, Московская область, Ленинский р-н, п. Горки Ленинские, ул. Восточная (Технопарк промзона), д.11
-            </div>
-            <div class="time-wrap">
-                <span>Время работы склада:</span> Понедельник – суббота с 8:00 до 18:00. Воскресенье выходной.
-            </div>
-        </div>
-        <div class="col-12 contacts-map">
-            <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3Ade668b4d14c962469128fcf63b9dc53364babb5a360be8ee4984516ec549cab0&amp;width=100%25&amp;height=576&amp;lang=ru_RU&amp;scroll=true"></script>
-        </div>
-    </div>
-</div>
-
-<footer class="bg-dark">
-    <div class="container bg-dark">
-        <div class="row">
-            <div class="col-lg-4 col-6 footer-unit">
-                <h5>Наши партнеры:</h5>
-                <div>Арго Топ</div>
-                <div>Топ Лист</div>
-            </div>
-            <div class="col-lg-4 col-6 footer-unit">
-                <h5>Внимание!</h5>
-                <div>
-                    Данный сайт носит исключительно информационный характер и не является публичной офертой, определяемой положениями ч. 2 ст. 437 ГК РФ. Для получения подробной информации о стоимости, наименовании и сроках оказания услуг, пожалуйста, обращайтесь к менеджерам.
+            <div class="col-12 contacts-address-time-wrap">
+                <div class="address-wrap">
+                    <span>Адрес оптового склада:</span> 142712, Московская область, Ленинский р-н, п. Горки Ленинские, ул. Восточная (Технопарк промзона), д.11
+                </div>
+                <div class="time-wrap">
+                    <span>Время работы склада:</span> Понедельник – суббота с 8:00 до 18:00. Воскресенье выходной.
                 </div>
             </div>
-            <div class="col-lg-4 col-12 footer-unit">
-                <h5>Подписка на рассылку:</h5>
-                <div>
-                    Подпишитесь на нашу рассылку новостей, чтоб быть в курсе всех изменений в номенклатуре товаров — снижении цен, новых позиций, специальных предложений.
-                </div>
-                <form class="form-inline email-form">
-                    <input class="form-control mr-sm-2 email-input" type="email" placeholder="Email" aria-label="Email">
-                    <button type="submit" class="email-button">Подписаться</button>
-                </form>
+            <div class="col-12 contacts-map">
+                <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3Ade668b4d14c962469128fcf63b9dc53364babb5a360be8ee4984516ec549cab0&amp;width=100%25&amp;height=576&amp;lang=ru_RU&amp;scroll=true"></script>
             </div>
         </div>
     </div>
-</footer>
-
-<div class="under-footer-wrap">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-4 order-0 text-center text-lg-left">
-                <span class="copyright">ООО «Интеллект Торг» © 2019</span>
-            </div>
-            <div class="col-lg-4 text-center order-lg-1 order-2">
-                <img src="../static/img/logo.png" alt="" height="30">
-            </div>
-            <div class="col-lg-4 d-flex justify-content-lg-end footer-contacts justify-content-center order-lg-2">
-                <span>+7 (123) 456-78-90+7&nbsp;&nbsp;(123) 456-78-90&nbsp&nbsp;</span><i class="fab fa-viber"></i> &nbsp;<i class="fab fa-whatsapp"></i>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<script src="../static/libs/jquery/jquery.min.js"></script>
-<script src="../static/libs/jquery/jquery.waypoints.min.js"></script>
-<script src="../static/libs/infinite/infinite.min.js"></script>
-<script src="../static/libs/bootstrap/js/bootstrap.min.js"></script>
-<script>
-    $('.dropdown').on('show.bs.dropdown', function(e){
-        $(this).find('.dropdown-menu').first().stop(true, true).slideDown();
-    });
-
-    // Add slideUp animation to dropdown
-    $('.dropdown').on('hide.bs.dropdown', function(e){
-        $(this).find('.dropdown-menu').first().stop(true, true).slideUp();
-    });
-</script>
-</body>
-</html>
+{% endblock %}

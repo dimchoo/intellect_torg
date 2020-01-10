@@ -2,15 +2,15 @@
 {% load static %}
 
 {% block title %}
-    Все товары
+    {{ page_title }}
 {% endblock %}
 
 {% block content %}
     <div class="container min-80">
-        <h2 class="page-title">Все продукты</h2>
+        <h2 class="page-title">{{ page_title }}</h2>
         <div class="row justify-content-center infinite-container">
-            {% if all_products_list %}
-                {% for one_product in all_products_list %}
+            {% if object_list %}
+                {% for one_product in object_list %}
                     <div class="infinite-item col-lg-3 col-md-6 col-12">
                         <div class="product-wrap">
 
@@ -65,9 +65,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-description more-margin-top">
-                    {% for page_description in page_descriptions %}
-                        {{ page_description.description | safe }}
-                    {% endfor %}
+                    {{ page_description | safe }}
                 </div>
             </div>
         </div>

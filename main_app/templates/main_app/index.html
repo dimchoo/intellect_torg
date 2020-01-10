@@ -121,12 +121,12 @@
         </div>
     {% endif %}
 
-    {% if page_descriptions %}
-        {% for page_description in page_descriptions %}
-            <div class="container page-description">
-                {{ page_description.description | safe }}
-            </div>
-        {% endfor %}
-    {% endif %}
+
+    {% for page_description in page_descriptions %}
+        <div class="container page-description">
+            {{ page_description.description | safe }}
+        </div>
+    {% endfor %}
+
 
 {% endblock %}
