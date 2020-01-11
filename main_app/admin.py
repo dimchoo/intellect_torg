@@ -1,3 +1,4 @@
+from import_export.admin import ImportExportModelAdmin
 from django.contrib import admin
 from main_app.models import *
 
@@ -8,4 +9,8 @@ admin.site.register(Product)
 admin.site.register(CommonPageDescription)
 admin.site.register(ContactEmail)
 admin.site.register(ContactPhone)
-admin.site.register(UserEmail)
+
+
+@admin.register(UserEmail)
+class UserEmailAdmin(ImportExportModelAdmin):
+    pass

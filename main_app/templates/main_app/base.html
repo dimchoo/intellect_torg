@@ -128,7 +128,6 @@
                 </div>
                 <form class="form-inline email-form" method="post" action="{% url 'main_app:for_subscribe' %}">
                     {% csrf_token %}
-{#                    <input class="form-control mr-sm-2 email-input" type="email" placeholder="Email" aria-label="Email">#}
                     {{ subscribe_form.email|add_class:'form-control  mr-sm-2 email-input'|attr:"placeholder:Email"|attr:"type:email"|attr:"aria-label:Email" }}
                     {{ subscribe_form.errors }}
                     <button type="submit" class="email-button">Подписаться</button>
