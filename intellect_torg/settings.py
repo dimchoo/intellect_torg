@@ -26,11 +26,14 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'widget_tweaks',
+    'import_export',
 
     'main_app',
 ]
 
 CKEDITOR_UPLOAD_PATH = 'ck_uploads'
+
+IMPORT_EXPORT_USE_TRANSACTIONS = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
