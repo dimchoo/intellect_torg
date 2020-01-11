@@ -82,6 +82,10 @@ body {
     min-height: 80vh;
 }
 
+.min-60 {
+    min-height: 60vh;
+}
+
 .blue-focus:focus {
     outline-color: #01bcc6!important;
     box-shadow: none!important;
@@ -206,7 +210,7 @@ header {
 .search-button {
     position: absolute;
     background: none!important;
-    right: 10px;
+    right: 12px;
     top: 7px;
     box-shadow: none;
     border: none;
@@ -798,14 +802,14 @@ footer {
     box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
 }
 
-.no-products {
+.no-products, .successful-subscription {
     text-align: center;
-    font-size: 28px;
+    font-size: 24px;.
     margin-top: 34px;
     margin-bottom: 34px;
 }
 
-.no-products a {
+.no-products a, .successful-subscription a {
     color: #005b7c;
 }
 
