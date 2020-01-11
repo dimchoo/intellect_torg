@@ -2,7 +2,8 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic import DetailView
 from django.views.generic.list import ListView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from main_app.models import Slide, Product, Brand, CommonPageDescription, ContactPhone, ContactEmail
+from django.db.models import Q
+from main_app.models import Slide, Product, Category, Brand, CommonPageDescription, ContactPhone, ContactEmail
 
 
 class HomeView(ListView):
@@ -53,12 +54,34 @@ class ProductsCategoryView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
-        context['page_title'] = Product.objects.filter(
-            category__slug=self.kwargs['slug']
-        ).first().category.name
-        context['page_description'] = Product.objects.filter(
-            category__slug=self.kwargs['slug']
-        ).first().category.description
+        context['page_title'] = Category.objects.filter(slug=self.kwargs['slug']).first().name
+        context['page_description'] = Category.objects.filter(slug=self.kwargs['slug']).first().description
+        return context
+
+
+class BrandsView(ListView):
+    model = Brand
+    paginate_by = 6
+    template_name = 'main_app/brands.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        context['page_descriptions'] = CommonPageDescription.objects.filter(page_name='Бренды')
+        return context
+
+
+class BrandProductsView(ListView):
+    model = Product
+    paginate_by = 4
+    template_name = 'main_app/brand_products.html'
+
+    def get_queryset(self, *args, **kwargs):
+        return Product.objects.filter(brand__slug=self.kwargs['slug'])
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        context['page_title'] = Brand.objects.filter(slug=self.kwargs['slug']).first().name
+        context['page_description'] = Brand.objects.filter(slug=self.kwargs['slug']).first().description
         return context
 
 
@@ -102,13 +125,27 @@ def price_list_view(request):
     return render(request, 'main_app/price-list.html', {'price_list_emails': price_list_emails})
 
 
-class BrandsView(ListView):
-    model = Brand
-    paginate_by = 6
-    template_name = 'main_app/brands.html'
+def search_view(request):
+    products_list = Product.objects.none()
+    query = request.GET.get('q')
+    if query:
+        products_list = Product.objects.filter(
+            Q(name__icontains=query) |
+            Q(brand__name__icontains=query)
+        ).distinct()
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data()
-        context['page_descriptions'] = CommonPageDescription.objects.filter(page_name='Бренды')
-        return context
+    paginator = Paginator(products_list, 4)
+    page = request.GET.get('page')
+
+    try:
+        products = paginator.page(page)
+    except PageNotAnInteger:
+        products = paginator.page(1)
+    except EmptyPage:
+        products = paginator.page(paginator.num_pages)
+
+    context = {
+        'products': products
+    }
+    return render(request, "main_app/search.html", context)
 

@@ -71,18 +71,22 @@
                         </a>
                         <div class="dropdown-menu drop-menu" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item see-all" href="{% url 'main_app:all_brands' %}">Смотреть все</a>
-                            {% for menu_barnd in menu_brands %}
-                                <a class="dropdown-item" href="#">{{ menu_barnd.name }}</a>
+                            {% for menu_brand in menu_brands %}
+                                <a class="dropdown-item" href="{% url 'main_app:brand_products' menu_brand.slug %}">{{ menu_brand.name }}</a>
                             {% endfor %}
                         </div>
                     </li>
                     <li class="nav-item order-lg-2 order-0">
-                        <form class="form-inline search-wrap">
-                            <input class="form-control mr-sm-2 search" type="search" placeholder="Поиск" aria-label="Search">
-                            <button class="search-button clr-dark" type="submit">
+
+
+                        <form class="form-inline search-wrap" action="{% url 'main_app:search' %}" method="get">
+                            <input class="form-control mr-sm-2 search" type="search" placeholder="Поиск" aria-label="Search" name="q">
+                            <button class="search-button">
                                 <i class="far fa-search clr-dark" aria-hidden="true"></i>
                             </button>
                         </form>
+
+
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-lg-auto order-3">

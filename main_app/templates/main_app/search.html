@@ -2,15 +2,15 @@
 {% load static %}
 
 {% block title %}
-    {{ page_title }}
+    Поиск
 {% endblock %}
 
 {% block content %}
     <div class="container min-80">
-        <h2 class="page-title">{{ page_title }}</h2>
+        <h2 class="page-title">Поиск: <span class="search-query">&#171;{{ request.GET.q }}&#187;</span></h2>
         <div class="row justify-content-center infinite-container">
-            {% if object_list %}
-                {% for one_product in object_list %}
+            {% if products %}
+                {% for one_product in products %}
                     <div class="infinite-item col-lg-3 col-md-6 col-12">
                         <div class="product-wrap">
 
@@ -45,8 +45,7 @@
                 {% endfor %}
             {% else %}
             <div class="no-products">
-                К сожалению товары категории "{{ page_title }}" еще не добавлены. Если у Вас возникли вопросы,
-                пожалуйста <a href="{% url 'main_app:contacts' %}">свяжитесь</a> с нами!
+                По запросу &#171;{{ request.GET.q }}&#187; ничего не найдено.
             </div>
             {% endif %}
         </div>
@@ -57,32 +56,21 @@
         </div>
     </div>
 
-    {% if page_obj.has_next %}
-        <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"></a>
+    {% if products.has_next %}
+        <a class="infinite-more-link" href="?page={{ products.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"></a>
     {% endif %}
-
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="page-description more-margin-top">
-                    {{ page_description | safe }}
-                </div>
-            </div>
-        </div>
-    </div>
-
 {% endblock %}
 
 {% block extrascripts %}
-<script>
-    let infinite = new Waypoint.Infinite({
-      element: $('.infinite-container')[0],
-      onBeforePageLoad: function () {
-        $('.loading').show();
-      },
-      onAfterPageLoad: function ($items) {
-        $('.loading').hide();
-      }
-    });
-</script>
+    <script>
+        let infinite = new Waypoint.Infinite({
+          element: $('.infinite-container')[0],
+          onBeforePageLoad: function () {
+            $('.loading').show();
+          },
+          onAfterPageLoad: function ($items) {
+            $('.loading').hide();
+          }
+        });
+    </script>
 {% endblock %}
