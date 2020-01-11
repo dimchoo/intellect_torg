@@ -22,9 +22,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'main_app',
+
     'ckeditor',
     'ckeditor_uploader',
+    'widget_tweaks',
+
+    'main_app',
 ]
 
 CKEDITOR_UPLOAD_PATH = 'ck_uploads'
@@ -56,6 +59,7 @@ TEMPLATES = [
                 'main_app.context_processors.categories_processor',
                 'main_app.context_processors.brands_processor',
                 'main_app.context_processors.contact_phones_processor',
+                'main_app.context_processors.subscribe_form_processor',
             ],
         },
     },
