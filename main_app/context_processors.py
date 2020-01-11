@@ -1,4 +1,5 @@
 from main_app.models import Category, Brand, ContactPhone
+from main_app.forms import EmailForm
 
 
 def categories_processor(request):
@@ -11,3 +12,7 @@ def brands_processor(request):
 
 def contact_phones_processor(request):
     return {'menu_contact_phones': ContactPhone.objects.order_by('pk')[:2]}
+
+
+def subscribe_form_processor(request):
+    return {'subscribe_form': EmailForm()}

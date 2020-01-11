@@ -1,9 +1,11 @@
-from django.shortcuts import render, get_object_or_404
-from django.views.generic import DetailView
+from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse_lazy
+from django.views.generic import DetailView, CreateView
 from django.views.generic.list import ListView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
-from main_app.models import Slide, Product, Category, Brand, CommonPageDescription, ContactPhone, ContactEmail
+from main_app.models import *
+from main_app.forms import EmailForm
 
 
 class HomeView(ListView):
@@ -149,3 +151,17 @@ def search_view(request):
     }
     return render(request, "main_app/search.html", context)
 
+
+def successful_subscription_view(request):
+    return render(request, 'main_app/successful_subscription.html')
+
+
+class UserEmailCreateView(CreateView):
+    model = UserEmail
+
+    def post(self, request, *args, **kwargs):
+        bound_form = EmailForm(request.POST)
+
+        if bound_form.is_valid():
+            bound_form.save()
+            return redirect('main_app:successful_subscription')

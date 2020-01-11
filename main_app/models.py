@@ -120,3 +120,14 @@ class ContactPhone(models.Model):
     class Meta:
         verbose_name = 'Контактный номер телефона'
         verbose_name_plural = 'Контактные номера телефонов'
+
+
+class UserEmail(models.Model):
+    email = models.EmailField(verbose_name='Email', max_length=180)
+
+    def __str__(self):
+        return self.email
+
+    class Meta:
+        verbose_name = 'Подписка на рассылку'
+        verbose_name_plural = 'Подписки на рассылку'
