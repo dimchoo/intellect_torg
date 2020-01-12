@@ -38,7 +38,7 @@
                         Категория: <span>{{ object.category.name }}</span>
                     </div>
                     <div class="one-product-brand-wrap">
-                        <a href="#">
+                        <a href="{% url 'main_app:brand_products' object.brand.slug %}">
                             <img src="{{ object.brand.image.url }}" alt="{{ object.brand.name }}">
                         </a>
                     </div>

@@ -110,7 +110,7 @@
             <div class="row">
                 {% for popular_brand in popular_brands_slice %}
                     <div class="col-lg-2 col-md-3 col-6">
-                    <a href="#">
+                    <a href="{% url 'main_app:brand_products' popular_brand.slug %}">
                         <img src="{{ popular_brand.image.url }}" class="img-fluid" alt="{{ popular_brand.name }}">
                     </a>
                 </div>
