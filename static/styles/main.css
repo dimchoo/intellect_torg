@@ -811,6 +811,8 @@ footer {
 
 .no-products a, .successful-subscription a {
     color: #005b7c;
+    display: inline!important;
+    box-shadow: none!important;
 }
 
 .more-margin-top {
