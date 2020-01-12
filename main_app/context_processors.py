@@ -1,4 +1,4 @@
-from main_app.models import Category, Brand, ContactPhone
+from main_app.models import Category, Brand, ContactPhone, ShopPartner
 from main_app.forms import EmailForm
 
 
@@ -16,3 +16,7 @@ def contact_phones_processor(request):
 
 def subscribe_form_processor(request):
     return {'subscribe_form': EmailForm()}
+
+
+def shop_partners_processor(request):
+    return {'shop_partners': ShopPartner.objects.all()[:7]}

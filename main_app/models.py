@@ -131,3 +131,15 @@ class UserEmail(models.Model):
     class Meta:
         verbose_name = 'Подписка на рассылку'
         verbose_name_plural = 'Подписки на рассылку'
+
+
+class ShopPartner(models.Model):
+    name = models.CharField(verbose_name='Название', max_length=20)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Партнер'
+        verbose_name_plural = 'Партнеры'
+

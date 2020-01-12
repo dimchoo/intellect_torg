@@ -7,70 +7,68 @@
 
 {% block content %}
 
-    {% if slides %}
-        <div class="container-fluid">
-            <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
-                <ol class="carousel-indicators">
-                    {% for slide in slides %}
-                        <li data-target="#carouselExampleCaptions" data-slide-to="{{ slide.index}}" {% ifequal slide.index 0 %}class="active"{% endifequal %}></li>
-                    {% endfor %}
-                </ol>
-                <div class="carousel-inner">
-                    {% for slide in slides %}
-                        <div class="carousel-item {% ifequal slide.index 0 %}active{% endifequal %}">
-                            <img src="{{ slide.image.url }}" class="d-block w-100" alt="{{ slide.index }}">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h5>{{ slide.title }}</h5>
-                                <p>{{ slide.description }}</p>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-                <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </div>
-        </div>
-    {% endif %}
-
-    {% if new_products_slice %}
-        <div class="container new-products">
-            <h2 class="main-title">Новые поступления:</h2>
-            <div class="row justify-content-center">
-                {% for new_home_product in new_products_slice %}
-                    <div class="col-lg-3 col-md-6 col-12">
-                    <div class="product-wrap">
-                        <div class="new-wrap">
-                            NEW
-                        </div>
-                        <a href="{% url 'main_app:product' new_home_product.pk %}" class="img-wrap">
-                            <img src="{{ new_home_product.image.url }}" class="img-fluid" alt="{{ new_home_product.name }}">
-                        </a>
-                        <a href="product.html" class="product-name-wrap">
-                            {{ new_home_product.name }}
-                        </a>
-                        <div class="price-wrap">
-                            {% if new_home_product.old_price %}
-                                <span class="old-price">
-                                    {{ new_home_product.old_price }} руб.
-                                </span>
-                                &nbsp;
-                            {% endif %}
-                            <span class="new-price">
-                                {{ new_home_product.new_price }} руб.
-                            </span>
+    <div class="container-fluid">
+        <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                {% for slide in slides %}
+                    <li data-target="#carouselExampleCaptions" data-slide-to="{{ slide.index}}" {% ifequal slide.index 0 %}class="active"{% endifequal %}></li>
+                {% endfor %}
+            </ol>
+            <div class="carousel-inner">
+                {% for slide in slides %}
+                    <div class="carousel-item {% ifequal slide.index 0 %}active{% endifequal %}">
+                        <img src="{{ slide.image.url }}" class="d-block w-100" alt="{{ slide.index }}">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>{{ slide.title }}</h5>
+                            <p>{{ slide.description }}</p>
                         </div>
                     </div>
-                </div>
                 {% endfor %}
             </div>
+            <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
         </div>
-    {% endif %}
+    </div>
+
+        <div class="container new-products min-60">
+            {% if new_products_slice %}
+                <h2 class="main-title">Новые поступления:</h2>
+                <div class="row justify-content-center">
+                    {% for new_home_product in new_products_slice %}
+                        <div class="col-lg-3 col-md-6 col-12">
+                        <div class="product-wrap">
+                            <div class="new-wrap">
+                                NEW
+                            </div>
+                            <a href="{% url 'main_app:product' new_home_product.pk %}" class="img-wrap">
+                                <img src="{{ new_home_product.image.url }}" class="img-fluid" alt="{{ new_home_product.name }}">
+                            </a>
+                            <a href="product.html" class="product-name-wrap">
+                                {{ new_home_product.name }}
+                            </a>
+                            <div class="price-wrap">
+                                {% if new_home_product.old_price %}
+                                    <span class="old-price">
+                                        {{ new_home_product.old_price }} руб.
+                                    </span>
+                                    &nbsp;
+                                {% endif %}
+                                <span class="new-price">
+                                    {{ new_home_product.new_price }} руб.
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
 
     {% if sale_products_slice %}
         <div class="container sale-products">

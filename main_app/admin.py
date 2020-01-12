@@ -9,6 +9,7 @@ admin.site.register(Product)
 admin.site.register(CommonPageDescription)
 admin.site.register(ContactEmail)
 admin.site.register(ContactPhone)
+admin.site.register(ShopPartner)
 
 
 @admin.register(UserEmail)
