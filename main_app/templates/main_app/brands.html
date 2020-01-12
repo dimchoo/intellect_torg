@@ -12,7 +12,7 @@
             {% if object_list %}
                 {% for brand in object_list %}
                     <div class="infinite-item col-lg-2 col-md-3 col-6">
-                        <a href="#">
+                        <a href="{% url 'main_app:brand_products' brand.slug %}">
                             <img src="{{ brand.image.url }}" class="img-fluid" alt="{{ brand.name }}">
                         </a>
                     </div>
