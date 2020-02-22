@@ -10,3 +10,4 @@ __pycache__/
 *.DS_Store
 *secret_settings.py
 media/
+*local_settings.py
