@@ -15,8 +15,8 @@ class HomeView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
         context['slides'] = Slide.objects.all().order_by('index')
-        context['new_products_slice'] = Product.objects.filter(type='New').order_by('-pk')[:8]
-        context['sale_products_slice'] = Product.objects.filter(type='Sale').order_by('-pk')[:8]
+        context['new_products_slice'] = Product.objects.filter(is_new=True).order_by('-pk')[:8]
+        context['sale_products_slice'] = Product.objects.filter(discount_percent__gt=0).order_by('-pk')[:8]
         context['popular_brands_slice'] = Brand.objects.order_by('?')[:12]
         context['page_descriptions'] = CommonPageDescription.objects.filter(page_name='Главная')
         return context
@@ -93,7 +93,7 @@ class SaleView(ListView):
     template_name = 'main_app/sale.html'
 
     def get_queryset(self):
-        return Product.objects.filter(type='Sale').order_by('-pk')
+        return Product.objects.filter(discount_percent__gt=0).order_by('-pk')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data()

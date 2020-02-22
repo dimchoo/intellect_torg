@@ -15,14 +15,14 @@
                 </div>
                 <div class="one-product-detail-wrap">
                     <div class="one-product-prices-wrap d-inline-flex">
-                        {% if object.old_price %}
+                        {% if object.discount_percent %}
                             <div class="one-product-old-price">
-                                {{ object.old_price }} руб.
+                                {{ object.price }} руб.
                             </div>
                             &nbsp;
                         {% endif %}
                         <div class="one-product-new-price">
-                            {{ object.new_price }} руб.
+                            {{ object.get_price_by_discount }} руб.
                         </div>
                     </div>
                     <div class="one-product-status-wrap">
@@ -35,7 +35,10 @@
                         В паллете: <span>{{ object.in_pallet }}</span>
                     </div>
                     <div class="one-product-category-wrap">
-                        Категория: <span>{{ object.category.name }}</span>
+                        Категория:
+                        <a href="{% url 'main_app:products_category' object.category.slug %}">
+                            {{ object.category.name }}
+                        </a>
                     </div>
                     <div class="one-product-brand-wrap">
                         <a href="{% url 'main_app:brand_products' object.brand.slug %}">
@@ -54,11 +57,13 @@
             {% for similar_product in similar_products %}
                 <div class="col-lg-3 col-md-6 col-12">
                 <div class="product-wrap">
-                    {% if similar_product.type == 'Sale' %}
-                        <div class="sale-wrap">
-                            SALE
-                        </div>
-                    {% elif similar_product.type == 'New' %}
+                    {% if similar_product.discount_percent %}
+                            <div class="sale-wrap">
+                                <img src="{% static 'img/sale_unit.png' %}" alt="sale" width="90" height="90">
+                                <div class="sale-percent">-{{ similar_product.get_discount_percent }}%</div>
+                            </div>
+                    {% endif %}
+                    {% if similar_product.is_new %}
                         <div class="new-wrap">
                             NEW
                         </div>
@@ -66,18 +71,18 @@
                     <a href="{% url 'main_app:product' similar_product.pk %}" class="img-wrap">
                         <img src="{{ similar_product.image.url }}" class="img-fluid" alt="{{ similar_product.name }}">
                     </a>
-                    <a href="product.html" class="product-name-wrap">
+                    <a href="{% url 'main_app:product' similar_product.pk %}" class="product-name-wrap">
                         {{ similar_product.name }}
                     </a>
                     <div class="price-wrap">
-                        {% if similar_product.old_price %}
+                        {% if similar_product.discount_percent %}
                             <span class="old-price">
-                                {{ similar_product.old_price }}
+                                {{ similar_product.price }}
                             </span>
                             &nbsp;
                         {% endif %}
                         <span class="new-price">
-                            {{ similar_product.new_price }}
+                            {{ similar_product.get_price_by_discount }}
                         </span>
                     </div>
                 </div>

@@ -14,13 +14,16 @@
                     <div class="infinite-item col-lg-3 col-md-6 col-12">
                         <div class="product-wrap">
 
-                        {% if one_product.type == 'New' %}
+                        {% if one_product.is_new %}
                             <div class="new-wrap">
                                 NEW
                             </div>
-                        {% elif one_product.type == 'Sale' %}
+                        {% endif %}
+
+                        {% if one_product.discount_percent %}
                             <div class="sale-wrap">
-                                SALE
+                                <img src="{% static 'img/sale_unit.png' %}" alt="sale" width="90" height="90">
+                                <div class="sale-percent">-{{ one_product.get_discount_percent }}%</div>
                             </div>
                         {% endif %}
 
@@ -31,13 +34,13 @@
                             {{ one_product.name }}
                         </a>
                         <div class="price-wrap">
-                            {% if one_product.old_price %}
+                            {% if one_product.discount_percent %}
                                 <span class="old-price">
-                                    {{ one_product.old_price }} руб.
+                                    {{ one_product.price }} руб.
                                 </span>&nbsp;
                             {% endif %}
                             <span class="new-price">
-                                {{ one_product.new_price }} руб.
+                                {{ one_product.get_price_by_discount }} руб.
                             </span>
                         </div>
                     </div>

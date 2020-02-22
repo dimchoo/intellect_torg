@@ -14,9 +14,17 @@
                     <div class="infinite-item col-lg-3 col-md-6 col-12">
                         <div class="product-wrap">
 
-                        <div class="sale-wrap">
-                            SALE
-                        </div>
+                        {% if sale_product.is_new %}
+                            <div class="new-wrap">
+                                NEW
+                            </div>
+                        {% endif %}
+                        {% if sale_product.discount_percent %}
+                            <div class="sale-wrap">
+                                <img src="{% static 'img/sale_unit.png' %}" alt="sale" width="90" height="90">
+                                <div class="sale-percent">-{{ sale_product.get_discount_percent }}%</div>
+                            </div>
+                        {% endif %}
 
 
                         <a href="{% url 'main_app:product' sale_product.pk %}" class="img-wrap">
@@ -26,13 +34,13 @@
                             {{ sale_product.name }}
                         </a>
                         <div class="price-wrap">
-                            {% if sale_product.old_price %}
+                            {% if sale_product.discount_percent %}
                                 <span class="old-price">
-                                    {{ sale_product.old_price }}
+                                    {{ sale_product.price }}
                                 </span>&nbsp;
                             {% endif %}
                             <span class="new-price">
-                                {{ sale_product.new_price }}
+                                {{ sale_product.get_price_by_discount }}
                             </span>
                         </div>
                     </div>

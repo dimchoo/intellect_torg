@@ -28,6 +28,7 @@ class Brand(models.Model):
     class Meta:
         verbose_name = 'Бренд'
         verbose_name_plural = 'Бренды'
+        ordering = ['pk']
 
 
 class Category(models.Model):
@@ -48,14 +49,9 @@ class Product(models.Model):
     image = models.ImageField(verbose_name='Изображение', upload_to='products')
     category = models.ForeignKey(Category, verbose_name='Категория', on_delete=models.CASCADE)
     brand = models.ForeignKey(Brand, verbose_name='Бренд', on_delete=models.CASCADE)
-    _TYPE_CHOICES = (
-        ('Base', 'Base'),
-        ('New', 'New'),
-        ('Sale', 'Sale'),
-    )
-    type = models.CharField(verbose_name='Тип', max_length=4, choices=_TYPE_CHOICES, default='Base')
-    old_price = models.DecimalField(verbose_name='Старая цена', max_digits=6, decimal_places=2, blank=True, null=True)
-    new_price = models.DecimalField(verbose_name='Новая цена', max_digits=6, decimal_places=2, default=0)
+    price = models.DecimalField(verbose_name='Цена', max_digits=8, decimal_places=2, default=0)
+    discount_percent = models.DecimalField(verbose_name='Процент скидки', max_digits=6, decimal_places=2, default=0)
+    is_new = models.BooleanField(verbose_name='Новинка?', default=False)
     _STATUS_CHOICES = (
         ('В наличии', 'В наличии'),
         ('Ожидается', 'Ожидается'),
@@ -66,12 +62,27 @@ class Product(models.Model):
     in_pallet = models.CharField(verbose_name='В паллете', max_length=32)
     description = RichTextUploadingField(verbose_name='Описание', null=True, blank=True)
 
+    def get_price_by_discount(self):
+        if self.discount_percent:
+            return round(self.price - (self.price / 100 * self.discount_percent), 2)
+        return self.price
+
+    def get_discount_percent(self):
+        if str(self.discount_percent)[-3:] == '.00':
+            return str(self.discount_percent)[:-3]
+        elif str(self.discount_percent)[-2:] == '.0':
+            return str(self.discount_percent)[:-2]
+        elif str(self.discount_percent)[-1] == '0':
+            return str(self.discount_percent)[:-1]
+        return self.discount_percent
+
     def __str__(self):
         return self.name
 
     class Meta:
         verbose_name = 'Товар'
         verbose_name_plural = 'Товары'
+        ordering = ['pk']
 
 
 class CommonPageDescription(models.Model):

@@ -1,6 +1,8 @@
 {% extends "main_app/base.html" %}
 {% load static %}
-
+{% block extra_meta %}
+    <meta name="yandex-verification" content="3b2cc4e2a40e55bc" />
+{% endblock %}
 {% block title %}
     Главная
 {% endblock %}
@@ -43,24 +45,35 @@
                     {% for new_home_product in new_products_slice %}
                         <div class="col-lg-3 col-md-6 col-12">
                         <div class="product-wrap">
+
+                        {% if new_home_product.is_new %}
                             <div class="new-wrap">
                                 NEW
                             </div>
+                        {% endif %}
+
+                        {% if new_home_product.discount_percent %}
+                            <div class="sale-wrap">
+                                <img src="{% static 'img/sale_unit.png' %}" alt="sale" width="90" height="90">
+                                <div class="sale-percent">-{{ new_home_product.get_discount_percent }}%</div>
+                            </div>
+                        {% endif %}
+
                             <a href="{% url 'main_app:product' new_home_product.pk %}" class="img-wrap">
                                 <img src="{{ new_home_product.image.url }}" class="img-fluid" alt="{{ new_home_product.name }}">
                             </a>
-                            <a href="product.html" class="product-name-wrap">
+                            <a href="{% url 'main_app:product' new_home_product.pk %}" class="product-name-wrap">
                                 {{ new_home_product.name }}
                             </a>
                             <div class="price-wrap">
-                                {% if new_home_product.old_price %}
+                                {% if new_home_product.discount_percent %}
                                     <span class="old-price">
-                                        {{ new_home_product.old_price }} руб.
+                                        {{ new_home_product.price }} руб.
                                     </span>
                                     &nbsp;
                                 {% endif %}
                                 <span class="new-price">
-                                    {{ new_home_product.new_price }} руб.
+                                    {{ new_home_product.get_price_by_discount }} руб.
                                 </span>
                             </div>
                         </div>
@@ -77,24 +90,33 @@
                 {% for sale_home_product in sale_products_slice %}
                     <div class="col-lg-3 col-md-6 col-12">
                         <div class="product-wrap">
-                            <div class="sale-wrap">
-                                SALE
+                        {% if sale_home_product.is_new %}
+                            <div class="new-wrap">
+                                NEW
                             </div>
+                        {% endif %}
+
+                        {% if sale_home_product.discount_percent %}
+                            <div class="sale-wrap">
+                                <img src="{% static 'img/sale_unit.png' %}" alt="sale" width="90" height="90">
+                                <div class="sale-percent">-{{ sale_home_product.get_discount_percent }}%</div>
+                            </div>
+                        {% endif %}
                             <a href="{% url 'main_app:product' sale_home_product.pk %}" class="img-wrap">
                                 <img src="{{ sale_home_product.image.url }}" class="img-fluid" alt="{{ sale_home_product.name }}">
                             </a>
-                            <a href="product.html" class="product-name-wrap">
+                            <a href="{% url 'main_app:product' sale_home_product.pk %}" class="product-name-wrap">
                                 {{ sale_home_product.name }}
                             </a>
                             <div class="price-wrap">
-                                {% if sale_home_product.old_price %}
+                                {% if sale_home_product.discount_percent %}
                                 <span class="old-price">
-                                    {{ sale_home_product.old_price }} руб.
+                                    {{ sale_home_product.price }} руб.
                                 </span>
                                 &nbsp;
                                 {% endif %}
                                 <span class="new-price">
-                                    {{ sale_home_product.new_price }} руб.
+                                    {{ sale_home_product.get_price_by_discount }} руб.
                                 </span>
                             </div>
                         </div>
