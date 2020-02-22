@@ -305,6 +305,7 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 
 .product-wrap {
+    position: relative;
     min-height: 420px;
     background: white;
     border-radius: 5px;
@@ -382,25 +383,57 @@ input[type="search"]::-webkit-search-results-decoration {
     margin-bottom: 20px;
 }
 
+/*.sale-wrap {*/
+/*    position: absolute;*/
+/*    top: 10px;*/
+/*    left: 25px;*/
+/*    width: 50px;*/
+/*    height: 50px;*/
+/*    background: #d74d63;*/
+/*    border-radius: 50%;*/
+/*    color: white;*/
+/*    font-family: "Roboto-Bold", sans-serif;*/
+/*    padding-top: 15px;*/
+/*    padding-left: 5px;*/
+/*    z-index: 100;*/
+/*    text-align: center;*/
+/*    padding-right: 5px;*/
+/*}*/
+
 .sale-wrap {
     position: absolute;
-    top: 10px;
-    right: 25px;
-    width: 50px;
-    height: 50px;
-    background: #d74d63;
-    border-radius: 50%;
-    color: white;
+    left: 0;
+    top: 0;
     font-family: "Roboto-Bold", sans-serif;
-    padding-top: 15px;
-    padding-left: 5px;
     z-index: 100;
+    text-align: center;
+    height: 90px;
+    width: 90px;
+}
+
+.sale-wrap img {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.sale-percent {
+    position: absolute;
+    z-index: 110!important;
+    font-family: "Roboto-Bold", sans-serif;
+    font-size: 14px;
+    text-align: center;
+    color: white;
+    height: 90px;
+    width: 90px;
+    padding-top: 21px;
+    transform: skew(45deg, -45deg);
 }
 
 .new-wrap {
     position: absolute;
-    top: 10px;
-    right: 25px;
+    top: 5px;
+    right: 5px;
     width: 50px;
     height: 50px;
     background: #ffb400;
@@ -437,6 +470,7 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 
 .popular-brands a {
+    margin-top: 28px;
     display: block;
     margin-bottom: 28px;
 }
@@ -627,8 +661,9 @@ footer {
     margin-bottom: 10px;
 }
 
-.one-product-category-wrap span {
+.one-product-category-wrap a {
     color: #005b7c;
+    text-decoration: underline;
 }
 
 .one-product-brand-wrap {
