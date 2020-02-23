@@ -21,6 +21,7 @@ class Brand(models.Model):
     slug = models.SlugField(verbose_name='Строка в браузере', max_length=32, unique=True)
     image = models.ImageField(verbose_name='Изображение', upload_to='brands')
     description = RichTextUploadingField(verbose_name='Описание', null=True, blank=True)
+    meta_description = models.CharField(verbose_name='Мета-описание', max_length=150, null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -35,6 +36,7 @@ class Category(models.Model):
     name = models.CharField(verbose_name='Название', max_length=32, unique=True)
     slug = models.SlugField(verbose_name='Строка в браузере', max_length=32, unique=True)
     description = RichTextUploadingField(verbose_name='Описание', null=True, blank=True)
+    meta_description = models.CharField(verbose_name='Мета-описание', max_length=150, null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -61,6 +63,7 @@ class Product(models.Model):
     in_box = models.CharField(verbose_name='В коробке', max_length=32)
     in_pallet = models.CharField(verbose_name='В паллете', max_length=32)
     description = RichTextUploadingField(verbose_name='Описание', null=True, blank=True)
+    meta_description = models.CharField(verbose_name='Мета-описание', max_length=150, null=True, blank=True)
 
     def get_price_by_discount(self):
         if self.discount_percent:
@@ -101,6 +104,7 @@ class CommonPageDescription(models.Model):
         default='Главная'
     )
     description = RichTextUploadingField(verbose_name='Описание', null=True, blank=True)
+    meta_description = models.CharField(verbose_name='Мета-описание', max_length=150, null=True, blank=True)
 
     def __str__(self):
         return 'Описание страницы "{}"'.format(self.page_name)

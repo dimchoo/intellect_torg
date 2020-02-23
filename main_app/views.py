@@ -1,5 +1,4 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from django.urls import reverse_lazy
+from django.shortcuts import render, redirect
 from django.views.generic import DetailView, CreateView
 from django.views.generic.list import ListView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -19,6 +18,14 @@ class HomeView(ListView):
         context['sale_products_slice'] = Product.objects.filter(discount_percent__gt=0).order_by('-pk')[:8]
         context['popular_brands_slice'] = Brand.objects.order_by('?')[:12]
         context['page_descriptions'] = CommonPageDescription.objects.filter(page_name='Главная')
+        desc_obj = CommonPageDescription.objects.filter(
+            page_name='Главная',
+            meta_description__isnull=False
+        ).first()
+        if desc_obj:
+            context['meta_description'] = desc_obj.meta_description
+        else:
+            context['meta_description'] = None
         return context
 
 
@@ -43,6 +50,14 @@ class AllProductsView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
         context['page_descriptions'] = CommonPageDescription.objects.filter(page_name='Каталог')
+        desc_obj = CommonPageDescription.objects.filter(
+            page_name='Каталог',
+            meta_description__isnull=False
+        ).first()
+        if desc_obj:
+            context['meta_description'] = desc_obj.meta_description
+        else:
+            context['meta_description'] = None
         return context
 
 
@@ -58,6 +73,14 @@ class ProductsCategoryView(ListView):
         context = super().get_context_data()
         context['page_title'] = Category.objects.filter(slug=self.kwargs['slug']).first().name
         context['page_description'] = Category.objects.filter(slug=self.kwargs['slug']).first().description
+        desc_obj = Category.objects.filter(
+            slug=self.kwargs['slug'],
+            meta_description__isnull=False
+        ).first()
+        if desc_obj:
+            context['meta_description'] = desc_obj.meta_description
+        else:
+            context['meta_description'] = None
         return context
 
 
@@ -69,6 +92,14 @@ class BrandsView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
         context['page_descriptions'] = CommonPageDescription.objects.filter(page_name='Бренды')
+        desc_obj = CommonPageDescription.objects.filter(
+            page_name='Бренды',
+            meta_description__isnull=False
+        ).first()
+        if desc_obj:
+            context['meta_description'] = desc_obj.meta_description
+        else:
+            context['meta_description'] = None
         return context
 
 
@@ -84,6 +115,14 @@ class BrandProductsView(ListView):
         context = super().get_context_data()
         context['page_title'] = Brand.objects.filter(slug=self.kwargs['slug']).first().name
         context['page_description'] = Brand.objects.filter(slug=self.kwargs['slug']).first().description
+        desc_obj = Brand.objects.filter(
+            slug=self.kwargs['slug'],
+            meta_description__isnull=False
+        ).first()
+        if desc_obj:
+            context['meta_description'] = desc_obj.meta_description
+        else:
+            context['meta_description'] = None
         return context
 
 
@@ -98,6 +137,14 @@ class SaleView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
         context['page_descriptions'] = CommonPageDescription.objects.filter(page_name='Распродажа')
+        desc_obj = CommonPageDescription.objects.filter(
+            page_name='Распродажа',
+            meta_description__isnull=False
+        ).first()
+        if desc_obj:
+            context['meta_description'] = desc_obj.meta_description
+        else:
+            context['meta_description'] = None
         return context
 
 
@@ -105,11 +152,20 @@ def contacts_view(request):
     page_descriptions = CommonPageDescription.objects.filter(page_name='Контакты')
     contacts_phones = ContactPhone.objects.all()
     contacts_emails = ContactEmail.objects.all()
+    desc_obj = CommonPageDescription.objects.filter(
+        page_name='Контакты',
+        meta_description__isnull=False
+    ).first()
+    if desc_obj:
+        meta_description = desc_obj.meta_description
+    else:
+        meta_description = None
 
     context = {
         'page_descriptions': page_descriptions,
         'contacts_phones': contacts_phones,
         'contacts_emails': contacts_emails,
+        'meta_description': meta_description,
     }
 
     return render(request, 'main_app/contacts.html', context)
@@ -117,8 +173,21 @@ def contacts_view(request):
 
 def delivery_view(request):
     page_descriptions = CommonPageDescription.objects.filter(page_name='Доставка')
+    desc_obj = CommonPageDescription.objects.filter(
+        page_name='Доставка',
+        meta_description__isnull=False
+    ).first()
+    if desc_obj:
+        meta_description = desc_obj.meta_description
+    else:
+        meta_description = None
 
-    return render(request, 'main_app/delivery.html', {'page_descriptions': page_descriptions})
+    context = {
+        'page_descriptions': page_descriptions,
+        'meta_description': meta_description,
+    }
+
+    return render(request, 'main_app/delivery.html', context)
 
 
 def price_list_view(request):
