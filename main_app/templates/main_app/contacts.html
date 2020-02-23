@@ -1,6 +1,8 @@
 {% extends 'main_app/base.html' %}
 {% load static %}
-
+{% block extra_meta %}
+    <meta name="description" content="{{ meta_description }}">
+{% endblock %}
 {% block title %}
     Контакты
 {% endblock %}
