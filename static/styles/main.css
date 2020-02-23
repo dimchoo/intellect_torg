@@ -302,6 +302,7 @@ input[type="search"]::-webkit-search-results-decoration {
 .main-title {
     color: #005b7c;
     margin-bottom: 20px;
+    font-size: 2rem;
 }
 
 .product-wrap {
@@ -594,6 +595,7 @@ footer {
     color: #343a40;
     margin-top: 28px;
     margin-bottom: 28px;
+    font-size: 2rem;
 }
 
 .one-product-img-wrap {
