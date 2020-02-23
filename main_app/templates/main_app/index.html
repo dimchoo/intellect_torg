@@ -40,7 +40,7 @@
 
         <div class="container new-products min-60">
             {% if new_products_slice %}
-                <h2 class="main-title">Новые поступления:</h2>
+                <h1 class="main-title">Новые поступления:</h1>
                 <div class="row justify-content-center">
                     {% for new_home_product in new_products_slice %}
                         <div class="col-lg-3 col-md-6 col-12">
@@ -85,7 +85,7 @@
 
     {% if sale_products_slice %}
         <div class="container sale-products">
-            <h2 class="main-title">Распродажа:</h2>
+            <h1 class="main-title">Распродажа:</h1>
             <div class="row justify-content-center">
                 {% for sale_home_product in sale_products_slice %}
                     <div class="col-lg-3 col-md-6 col-12">
@@ -128,7 +128,7 @@
 
     {% if popular_brands_slice %}
         <div class="container popular-brands">
-            <h2 class="main-title">Популярные бренды:</h2>
+            <h1 class="main-title">Популярные бренды:</h1>
             <div class="row">
                 {% for popular_brand in popular_brands_slice %}
                     <div class="col-lg-2 col-md-3 col-6">
