@@ -1,5 +1,6 @@
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
+from django.utils.safestring import mark_safe
 
 
 class Slide(models.Model):
@@ -7,6 +8,18 @@ class Slide(models.Model):
     title = models.CharField(verbose_name='Заголовок слайда', max_length=64)
     index = models.SmallIntegerField(verbose_name='Индекс')
     description = models.CharField(verbose_name='Описание слайда', max_length=128)
+
+    def image_tag(self):
+        return mark_safe(f'<img src="{self.image.url}" style="height:65px;" />')
+
+    def model_image_tag(self):
+        return mark_safe(f'<img src="{self.image.url}" style="height:85px;" />')
+
+    image_tag.short_description = 'Изображение'
+    image_tag.allow_tags = True
+
+    model_image_tag.short_description = 'Предпоказ изображения'
+    model_image_tag.allow_tags = True
 
     def __str__(self):
         return self.title
@@ -22,6 +35,18 @@ class Brand(models.Model):
     image = models.ImageField(verbose_name='Изображение', upload_to='brands')
     description = RichTextUploadingField(verbose_name='Описание', null=True, blank=True)
     meta_description = models.CharField(verbose_name='Мета-описание', max_length=150, null=True, blank=True)
+
+    def image_tag(self):
+        return mark_safe(f'<img src="{self.image.url}" style="height:65px;" />')
+
+    def model_image_tag(self):
+        return mark_safe(f'<img src="{self.image.url}" style="height:85px;" />')
+
+    image_tag.short_description = 'Изображение'
+    image_tag.allow_tags = True
+
+    model_image_tag.short_description = 'Предпоказ изображения'
+    model_image_tag.allow_tags = True
 
     def __str__(self):
         return self.name
@@ -78,6 +103,28 @@ class Product(models.Model):
         elif str(self.discount_percent)[-1] == '0':
             return str(self.discount_percent)[:-1]
         return self.discount_percent
+
+    def image_tag(self):
+        return mark_safe(f'<img src="{self.image.url}" style="height:65px;" />')
+
+    def model_image_tag(self):
+        return mark_safe(f'<img src="{self.image.url}" style="height:85px;" />')
+
+    def brand_image_tag(self):
+        return mark_safe(f'<img src="{self.brand.image.url}" style="height:55px;" />')
+
+    def model_brand_image_tag(self):
+        return mark_safe(f'<img src="{self.brand.image.url}" style="height:85px;" />')
+
+    image_tag.short_description = 'Изображение'
+    image_tag.allow_tags = True
+    model_image_tag.short_description = 'Предпоказ товара'
+    model_image_tag.allow_tags = True
+
+    brand_image_tag.short_description = 'Бренд'
+    brand_image_tag.allow_tags = True
+    model_brand_image_tag.short_description = 'Предпоказ бренда'
+    model_brand_image_tag.allow_tags = True
 
     def __str__(self):
         return self.name
