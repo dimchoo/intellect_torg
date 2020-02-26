@@ -1,6 +1,8 @@
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 from django.utils.safestring import mark_safe
+from django.template.defaultfilters import slugify
+from autoslug import AutoSlugField
 
 
 class Slide(models.Model):
@@ -73,7 +75,8 @@ class Category(models.Model):
 
 class Product(models.Model):
     name = models.CharField(verbose_name='Название', max_length=80, unique=True)
-    image = models.ImageField(verbose_name='Изображение', upload_to='products')
+    slug = AutoSlugField(populate_from='name', unique=True, null=True, blank=True)
+    image = models.ImageField(verbose_name='Изображение', upload_to='products', db_index=True)
     category = models.ForeignKey(Category, verbose_name='Категория', on_delete=models.CASCADE)
     brand = models.ForeignKey(Brand, verbose_name='Бренд', on_delete=models.CASCADE)
     price = models.DecimalField(verbose_name='Цена', max_digits=8, decimal_places=2, default=0)

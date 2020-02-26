@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'import_export',
     'django_unused_media',
+    'pytils',
 
     'main_app',
 

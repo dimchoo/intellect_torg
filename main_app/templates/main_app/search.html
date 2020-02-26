@@ -26,10 +26,10 @@
                             </div>
                         {% endif %}
 
-                        <a href="{% url 'main_app:product' one_product.pk %}" class="img-wrap">
+                        <a href="{% url 'main_app:product' one_product.slug %}" class="img-wrap">
                             <img src="{{ one_product.image.url }}" class="img-fluid" alt="{{ one_product.name }}">
                         </a>
-                        <a href="{% url 'main_app:product' one_product.pk %}" class="product-name-wrap">
+                        <a href="{% url 'main_app:product' one_product.slug %}" class="product-name-wrap">
                             {{ one_product.name }}
                         </a>
                         <div class="price-wrap">

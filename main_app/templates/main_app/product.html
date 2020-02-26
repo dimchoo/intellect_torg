@@ -70,10 +70,10 @@
                             NEW
                         </div>
                     {% endif %}
-                    <a href="{% url 'main_app:product' similar_product.pk %}" class="img-wrap">
+                    <a href="{% url 'main_app:product' similar_product.slug %}" class="img-wrap">
                         <img src="{{ similar_product.image.url }}" class="img-fluid" alt="{{ similar_product.name }}">
                     </a>
-                    <a href="{% url 'main_app:product' similar_product.pk %}" class="product-name-wrap">
+                    <a href="{% url 'main_app:product' similar_product.slug %}" class="product-name-wrap">
                         {{ similar_product.name }}
                     </a>
                     <div class="price-wrap">

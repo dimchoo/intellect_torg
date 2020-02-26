@@ -60,10 +60,10 @@
                             </div>
                         {% endif %}
 
-                            <a href="{% url 'main_app:product' new_home_product.pk %}" class="img-wrap">
+                            <a href="{% url 'main_app:product' new_home_product.slug %}" class="img-wrap">
                                 <img src="{{ new_home_product.image.url }}" class="img-fluid" alt="{{ new_home_product.name }}">
                             </a>
-                            <a href="{% url 'main_app:product' new_home_product.pk %}" class="product-name-wrap">
+                            <a href="{% url 'main_app:product' new_home_product.slug %}" class="product-name-wrap">
                                 {{ new_home_product.name }}
                             </a>
                             <div class="price-wrap">
@@ -103,10 +103,10 @@
                                 <div class="sale-percent">-{{ sale_home_product.get_discount_percent }}%</div>
                             </div>
                         {% endif %}
-                            <a href="{% url 'main_app:product' sale_home_product.pk %}" class="img-wrap">
+                            <a href="{% url 'main_app:product' sale_home_product.slug %}" class="img-wrap">
                                 <img src="{{ sale_home_product.image.url }}" class="img-fluid" alt="{{ sale_home_product.name }}">
                             </a>
-                            <a href="{% url 'main_app:product' sale_home_product.pk %}" class="product-name-wrap">
+                            <a href="{% url 'main_app:product' sale_home_product.slug %}" class="product-name-wrap">
                                 {{ sale_home_product.name }}
                             </a>
                             <div class="price-wrap">

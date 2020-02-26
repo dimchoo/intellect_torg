@@ -37,7 +37,7 @@ class ProductView(DetailView):
         context = super().get_context_data()
         context['similar_products'] = Product.objects.filter(
             category=self.object.category
-        ).order_by('?').exclude(pk=self.object.pk)[:4]
+        ).order_by('?').exclude(slug=self.object.slug)[:4]
         return context
 
 
