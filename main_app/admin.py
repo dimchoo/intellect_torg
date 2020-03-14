@@ -33,6 +33,7 @@ class AdminBrand(admin.ModelAdmin):
         'image',
         'model_image_tag',
         'description',
+        'keywords',
         'meta_description',
     ]
 
@@ -70,6 +71,7 @@ class AdminProduct(admin.ModelAdmin):
         'in_box',
         'in_pallet',
         'description',
+        'keywords',
         'meta_description',
     ]
 
