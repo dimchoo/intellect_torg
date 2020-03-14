@@ -36,6 +36,7 @@ class Brand(models.Model):
     slug = models.SlugField(verbose_name='Строка в браузере', max_length=32, unique=True)
     image = models.ImageField(verbose_name='Изображение', upload_to='brands')
     description = RichTextUploadingField(verbose_name='Описание', null=True, blank=True)
+    keywords = models.CharField(verbose_name='Ключевые слова', max_length=250, null=True, blank=True)
     meta_description = models.CharField(verbose_name='Мета-описание', max_length=150, null=True, blank=True)
 
     def image_tag(self):
@@ -63,6 +64,7 @@ class Category(models.Model):
     name = models.CharField(verbose_name='Название', max_length=32, unique=True)
     slug = models.SlugField(verbose_name='Строка в браузере', max_length=32, unique=True)
     description = RichTextUploadingField(verbose_name='Описание', null=True, blank=True)
+    keywords = models.CharField(verbose_name='Ключевые слова', max_length=250, null=True, blank=True)
     meta_description = models.CharField(verbose_name='Мета-описание', max_length=150, null=True, blank=True)
 
     def __str__(self):
@@ -91,6 +93,7 @@ class Product(models.Model):
     in_box = models.CharField(verbose_name='В коробке', max_length=32)
     in_pallet = models.CharField(verbose_name='В паллете', max_length=32)
     description = RichTextUploadingField(verbose_name='Описание', null=True, blank=True)
+    keywords = models.CharField(verbose_name='Ключевые слова', max_length=250, null=True, blank=True)
     meta_description = models.CharField(verbose_name='Мета-описание', max_length=150, null=True, blank=True)
 
     def get_price_by_discount(self):
@@ -154,6 +157,7 @@ class CommonPageDescription(models.Model):
         default='Главная'
     )
     description = RichTextUploadingField(verbose_name='Описание', null=True, blank=True)
+    keywords = models.CharField(verbose_name='Ключевые слова', max_length=250, null=True, blank=True)
     meta_description = models.CharField(verbose_name='Мета-описание', max_length=150, null=True, blank=True)
 
     def __str__(self):

@@ -18,6 +18,16 @@ class HomeView(ListView):
         context['sale_products_slice'] = Product.objects.filter(discount_percent__gt=0).order_by('-pk')[:8]
         context['popular_brands_slice'] = Brand.objects.order_by('?')[:12]
         context['page_descriptions'] = CommonPageDescription.objects.filter(page_name='Главная')
+
+        keywords_obj = CommonPageDescription.objects.filter(
+            page_name='Главная',
+            keywords__isnull=False
+        ).first()
+        if keywords_obj:
+            context['meta_keywords'] = keywords_obj.keywords
+        else:
+            context['meta_keywords'] = None
+
         desc_obj = CommonPageDescription.objects.filter(
             page_name='Главная',
             meta_description__isnull=False
@@ -26,6 +36,7 @@ class HomeView(ListView):
             context['meta_description'] = desc_obj.meta_description
         else:
             context['meta_description'] = None
+
         return context
 
 
@@ -50,6 +61,16 @@ class AllProductsView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
         context['page_descriptions'] = CommonPageDescription.objects.filter(page_name='Каталог')
+
+        keywords_obj = CommonPageDescription.objects.filter(
+            page_name='Каталог',
+            keywords__isnull=False
+        ).first()
+        if keywords_obj:
+            context['meta_keywords'] = keywords_obj.keywords
+        else:
+            context['meta_keywords'] = None
+
         desc_obj = CommonPageDescription.objects.filter(
             page_name='Каталог',
             meta_description__isnull=False
@@ -58,6 +79,7 @@ class AllProductsView(ListView):
             context['meta_description'] = desc_obj.meta_description
         else:
             context['meta_description'] = None
+
         return context
 
 
@@ -73,6 +95,16 @@ class ProductsCategoryView(ListView):
         context = super().get_context_data()
         context['page_title'] = Category.objects.filter(slug=self.kwargs['slug']).first().name
         context['page_description'] = Category.objects.filter(slug=self.kwargs['slug']).first().description
+
+        keywords_obj = Category.objects.filter(
+            slug=self.kwargs['slug'],
+            keywords__isnull=False
+        ).first()
+        if keywords_obj:
+            context['meta_keywords'] = keywords_obj.keywords
+        else:
+            context['meta_keywords'] = None
+
         desc_obj = Category.objects.filter(
             slug=self.kwargs['slug'],
             meta_description__isnull=False
@@ -81,6 +113,7 @@ class ProductsCategoryView(ListView):
             context['meta_description'] = desc_obj.meta_description
         else:
             context['meta_description'] = None
+
         return context
 
 
@@ -92,6 +125,16 @@ class BrandsView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
         context['page_descriptions'] = CommonPageDescription.objects.filter(page_name='Бренды')
+
+        keywords_obj = CommonPageDescription.objects.filter(
+            page_name='Бренды',
+            keywords__isnull=False
+        ).first()
+        if keywords_obj:
+            context['meta_keywords'] = keywords_obj.keywords
+        else:
+            context['meta_keywords'] = None
+
         desc_obj = CommonPageDescription.objects.filter(
             page_name='Бренды',
             meta_description__isnull=False
@@ -100,6 +143,7 @@ class BrandsView(ListView):
             context['meta_description'] = desc_obj.meta_description
         else:
             context['meta_description'] = None
+
         return context
 
 
@@ -115,6 +159,16 @@ class BrandProductsView(ListView):
         context = super().get_context_data()
         context['page_title'] = Brand.objects.filter(slug=self.kwargs['slug']).first().name
         context['page_description'] = Brand.objects.filter(slug=self.kwargs['slug']).first().description
+
+        keywords_obj = Brand.objects.filter(
+            slug=self.kwargs['slug'],
+            keywords__isnull=False
+        ).first()
+        if keywords_obj:
+            context['meta_keywords'] = keywords_obj.keywords
+        else:
+            context['meta_keywords'] = None
+
         desc_obj = Brand.objects.filter(
             slug=self.kwargs['slug'],
             meta_description__isnull=False
@@ -123,6 +177,7 @@ class BrandProductsView(ListView):
             context['meta_description'] = desc_obj.meta_description
         else:
             context['meta_description'] = None
+
         return context
 
 
@@ -137,6 +192,16 @@ class SaleView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
         context['page_descriptions'] = CommonPageDescription.objects.filter(page_name='Распродажа')
+
+        keywords_obj = CommonPageDescription.objects.filter(
+            page_name='Распродажа',
+            keywords__isnull=False
+        ).first()
+        if keywords_obj:
+            context['meta_keywords'] = keywords_obj.keywords
+        else:
+            context['meta_keywords'] = None
+
         desc_obj = CommonPageDescription.objects.filter(
             page_name='Распродажа',
             meta_description__isnull=False
@@ -145,6 +210,7 @@ class SaleView(ListView):
             context['meta_description'] = desc_obj.meta_description
         else:
             context['meta_description'] = None
+
         return context
 
 
@@ -152,6 +218,16 @@ def contacts_view(request):
     page_descriptions = CommonPageDescription.objects.filter(page_name='Контакты')
     contacts_phones = ContactPhone.objects.all()
     contacts_emails = ContactEmail.objects.all()
+
+    keywords_obj = CommonPageDescription.objects.filter(
+        page_name='Контакты',
+        keywords__isnull=False
+    ).first()
+    if keywords_obj:
+        meta_keywords = keywords_obj.keywords
+    else:
+        meta_keywords = None
+
     desc_obj = CommonPageDescription.objects.filter(
         page_name='Контакты',
         meta_description__isnull=False
@@ -165,6 +241,7 @@ def contacts_view(request):
         'page_descriptions': page_descriptions,
         'contacts_phones': contacts_phones,
         'contacts_emails': contacts_emails,
+        'meta_keywords': meta_keywords,
         'meta_description': meta_description,
     }
 
@@ -173,6 +250,16 @@ def contacts_view(request):
 
 def delivery_view(request):
     page_descriptions = CommonPageDescription.objects.filter(page_name='Доставка')
+
+    keywords_obj = CommonPageDescription.objects.filter(
+        page_name='Доставка',
+        keywords__isnull=False
+    ).first()
+    if keywords_obj:
+        meta_keywords = keywords_obj.keywords
+    else:
+        meta_keywords = None
+
     desc_obj = CommonPageDescription.objects.filter(
         page_name='Доставка',
         meta_description__isnull=False
@@ -184,6 +271,7 @@ def delivery_view(request):
 
     context = {
         'page_descriptions': page_descriptions,
+        'meta_keywords': meta_keywords,
         'meta_description': meta_description,
     }
 
