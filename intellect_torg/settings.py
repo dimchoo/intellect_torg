@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'pytils',
 
     'main_app',
+    'files_app',
 
     'django_cleanup',
 ]
