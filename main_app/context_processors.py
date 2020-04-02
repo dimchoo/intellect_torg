@@ -1,6 +1,8 @@
 from main_app.models import Category, Brand, ContactPhone, ShopPartner
 from main_app.forms import EmailForm
 
+from datetime import datetime as dt
+
 
 def categories_processor(request):
     return {'menu_categories': Category.objects.all()}
@@ -20,3 +22,7 @@ def subscribe_form_processor(request):
 
 def shop_partners_processor(request):
     return {'shop_partners': ShopPartner.objects.all()[:7]}
+
+
+def year_processor(request):
+    return {'year_now': dt.now().year}

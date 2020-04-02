@@ -69,6 +69,7 @@ TEMPLATES = [
                 'main_app.context_processors.contact_phones_processor',
                 'main_app.context_processors.subscribe_form_processor',
                 'main_app.context_processors.shop_partners_processor',
+                'main_app.context_processors.year_processor',
             ],
         },
     },
