@@ -305,6 +305,14 @@ input[type="search"]::-webkit-search-results-decoration {
     font-size: 2rem;
 }
 
+.main-title a {
+    color: unset;
+}
+
+.main-title a:hover {
+    text-decoration: none;
+}
+
 .product-wrap {
     position: relative;
     min-height: 420px;
@@ -383,23 +391,6 @@ input[type="search"]::-webkit-search-results-decoration {
     margin-top: 20px;
     margin-bottom: 20px;
 }
-
-/*.sale-wrap {*/
-/*    position: absolute;*/
-/*    top: 10px;*/
-/*    left: 25px;*/
-/*    width: 50px;*/
-/*    height: 50px;*/
-/*    background: #d74d63;*/
-/*    border-radius: 50%;*/
-/*    color: white;*/
-/*    font-family: "Roboto-Bold", sans-serif;*/
-/*    padding-top: 15px;*/
-/*    padding-left: 5px;*/
-/*    z-index: 100;*/
-/*    text-align: center;*/
-/*    padding-right: 5px;*/
-/*}*/
 
 .sale-wrap {
     position: absolute;

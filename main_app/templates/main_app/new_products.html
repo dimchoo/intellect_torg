@@ -1,0 +1,94 @@
+{% extends 'main_app/base.html' %}
+{% load static %}
+{% block extra_meta %}
+    <meta name="keywords" content="{{ meta_keywords }}" />
+    <meta name="description" content="{{ meta_description }}">
+{% endblock %}
+{% block title %}
+    Новинки
+{% endblock %}
+
+{% block content %}
+    <div class="container min-60">
+        <h1 class="page-title">Новые поступления</h1>
+        <div class="row justify-content-center infinite-container">
+            {% if object_list %}
+                {% for new_product in object_list %}
+                    <div class="infinite-item col-lg-3 col-md-6 col-12">
+                        <div class="product-wrap">
+
+                        <div class="new-wrap">
+                            NEW
+                        </div>
+                        {% if new_product.discount_percent %}
+                            <div class="sale-wrap">
+                                <img src="{% static 'img/sale_unit.png' %}" alt="sale" width="90" height="90">
+                                <div class="sale-percent">-{{ new_product.get_discount_percent }}%</div>
+                            </div>
+                        {% endif %}
+
+
+                        <a href="{% url 'main_app:product' new_product.slug %}" class="img-wrap">
+                            <img src="{{ new_product.image.url }}" class="img-fluid" alt="{{ new_product.name }}">
+                        </a>
+                        <a href="{% url 'main_app:product' new_product.slug %}" class="product-name-wrap">
+                            {{ new_product.name }}
+                        </a>
+                        <div class="price-wrap">
+                            {% if new_product.discount_percent %}
+                                <span class="old-price">
+                                    {{ new_product.price }}
+                                </span>&nbsp;
+                            {% endif %}
+                            <span class="new-price">
+                                {{ new_product.get_price_by_discount }}
+                            </span>
+                        </div>
+                    </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="no-products">
+                    К сожалению на данный момент на сайте нет новых поступлений. Если у Вас возникли вопросы,
+                    пожалуйста <a href={% url 'main_app:contacts' %}>свяжитесь</a> с нами!
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="loading" style="display: none;">
+        <div class="loader-wrap">
+            <a href="#" class="loader" id="loader"></a>
+        </div>
+    </div>
+
+    {% if page_obj.has_next %}
+        <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"></a>
+    {% endif %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-description more-margin-top">
+                    {% for page_description in page_descriptions %}
+                        {{ page_description.description | safe }}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block extrascripts %}
+<script>
+    let infinite = new Waypoint.Infinite({
+      element: $('.infinite-container')[0],
+      onBeforePageLoad: function () {
+        $('.loading').show();
+      },
+      onAfterPageLoad: function ($items) {
+        $('.loading').hide();
+      }
+    });
+</script>
+{% endblock %}

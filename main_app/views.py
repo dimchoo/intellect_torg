@@ -214,6 +214,39 @@ class SaleView(ListView):
         return context
 
 
+class NewView(ListView):
+    model = Product
+    paginate_by = 4
+    template_name = 'main_app/new_products.html'
+
+    def get_queryset(self):
+        return Product.objects.filter(is_new=True).order_by('-pk')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        context['page_descriptions'] = CommonPageDescription.objects.filter(page_name='Новинки')
+
+        keywords_obj = CommonPageDescription.objects.filter(
+            page_name='Новинки',
+            keywords__isnull=False
+        ).first()
+        if keywords_obj:
+            context['meta_keywords'] = keywords_obj.keywords
+        else:
+            context['meta_keywords'] = None
+
+        desc_obj = CommonPageDescription.objects.filter(
+            page_name='Новинки',
+            meta_description__isnull=False
+        ).first()
+        if desc_obj:
+            context['meta_description'] = desc_obj.meta_description
+        else:
+            context['meta_description'] = None
+
+        return context
+
+
 def contacts_view(request):
     page_descriptions = CommonPageDescription.objects.filter(page_name='Контакты')
     contacts_phones = ContactPhone.objects.all()
