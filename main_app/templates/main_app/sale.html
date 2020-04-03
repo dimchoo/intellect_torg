@@ -39,11 +39,11 @@
                         <div class="price-wrap">
                             {% if sale_product.discount_percent %}
                                 <span class="old-price">
-                                    {{ sale_product.price }}
+                                    {{ sale_product.price }} руб.
                                 </span>&nbsp;
                             {% endif %}
                             <span class="new-price">
-                                {{ sale_product.get_price_by_discount }}
+                                {{ sale_product.get_price_by_discount }} руб.
                             </span>
                         </div>
                     </div>
