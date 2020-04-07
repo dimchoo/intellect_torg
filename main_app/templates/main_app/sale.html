@@ -7,6 +7,9 @@
 {% block title %}
     Распродажа
 {% endblock %}
+{% block extra_link %}
+    <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{% url 'main_app:sale' %}">
+{% endblock %}
 
 {% block content %}
     <div class="container min-60">

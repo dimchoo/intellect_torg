@@ -7,6 +7,9 @@
 {% block title %}
     Новинки
 {% endblock %}
+{% block extra_link %}
+    <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{% url 'main_app:new' %}">
+{% endblock %}
 
 {% block content %}
     <div class="container min-60">
