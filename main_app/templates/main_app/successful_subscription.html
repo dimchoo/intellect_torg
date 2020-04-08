@@ -4,6 +4,9 @@
 {% block title %}
     Подписка на рассылку
 {% endblock %}
+{% block extra_link %}
+    <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{% url 'main_app:successful_subscription' %}">
+{% endblock %}
 
 {% block content %}
     <div class="container min-60">
