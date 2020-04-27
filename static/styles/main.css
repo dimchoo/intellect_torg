@@ -850,3 +850,7 @@ footer {
 .search-query {
     text-transform: none!important;
 }
+
+a {
+    color: #005b7c;
+}
