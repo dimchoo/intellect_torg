@@ -83,12 +83,12 @@
                     <div class="price-wrap">
                         {% if similar_product.discount_percent %}
                             <span class="old-price">
-                                {{ similar_product.price }}
+                                {{ similar_product.price }} руб.
                             </span>
                             &nbsp;
                         {% endif %}
                         <span class="new-price">
-                            {{ similar_product.get_price_by_discount }}
+                            {{ similar_product.get_price_by_discount }} руб.
                         </span>
                     </div>
                 </div>
