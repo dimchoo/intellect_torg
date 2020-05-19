@@ -105,7 +105,7 @@
 
     {% if sale_products_slice %}
         <div class="container sale-products">
-            <h1 class="main-title"><a href="{% url 'main_app:sale' %}">Распродажа:</a></h1>
+            <h2 class="main-title"><a href="{% url 'main_app:sale' %}">Распродажа:</a></h2>
             <div class="row justify-content-center">
                 {% for sale_home_product in sale_products_slice %}
                     <div class="col-lg-3 col-md-6 col-12">
@@ -148,7 +148,7 @@
 
     {% if popular_brands_slice %}
         <div class="container popular-brands">
-            <h1 class="main-title"><a href="{% url 'main_app:all_brands' %}">Популярные бренды:</a></h1>
+            <h3 class="main-title"><a href="{% url 'main_app:all_brands' %}">Популярные бренды:</a></h3>
             <div class="row">
                 {% for popular_brand in popular_brands_slice %}
                     <div class="col-lg-2 col-md-3 col-6">
